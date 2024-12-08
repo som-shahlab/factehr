@@ -141,7 +141,8 @@ async def process_api_requests_from_file(
     request_header = {"Authorization": f"Bearer {api_key}"}
     # use api-key header for Azure deployments
     if "/deployments" in request_url:
-        request_header = {"api-key": f"{api_key}"}
+        request_header = {"api-key": f"{api_key}",
+                          "Ocp-Apim-Subscription-Key": f"{api_key}"}
 
     # initialize trackers
     queue_of_requests_to_retry = asyncio.Queue()
@@ -180,11 +181,23 @@ async def process_api_requests_from_file(
                         try:
                             # get new request
                             request_json = json.loads(next(requests))
+                            # Remove "max_tokens" from request_json if it exists
                             request_json = {**request_json,  # existing request JSON
                                             "model": model_name,
                                             "temperature": generation_params["generation"]["temperature"],
-                                            "max_tokens": max_tokens_per_generation,
                                             "top_p": generation_params["generation"]["top_p"]}
+                            
+                            if "o1" in model_name:
+                                # for o1 certain parameters are different
+                                # only temperature=1 is supported
+                                # only top_p=1 is supported
+                                request_json.pop("max_tokens", None)
+                                request_json["max_completion_tokens"] = max_tokens_per_generation  # Use max_completion_tokens
+                                request_json["temperature"] = 1
+                                request_json["top_p"] = 1
+                            else:
+                                request_json["max_tokens"] = max_tokens_per_generation 
+                            
                             next_request = APIRequest(
                                 task_id=next(task_id_generator),
                                 request_json=request_json,

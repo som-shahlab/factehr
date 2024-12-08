@@ -51,27 +51,34 @@ DATASET_ID="${DATASET_ID:-medalign_aaai_2024_release_dua}"
 GCP_BUCKET="${GCP_BUCKET:-som_nero_phi_nigam_starr_extract_scratch}"
 
 
+# TODO — edit downstream scripts to dynamically look for medalign parquet.
+# Currenty it looks for `medalign-aaai_release_notes.parquet`
+#
 # Determine the appropriate output file name based on the TABLE_ID
-case "$TABLE_ID" in
-  aaai_release_note)
-    TABLE_ID="aaai_release_note"
-    OUTPUT_FILE="${OUTPUT_FILE:-medalign-aaai_release_notes.parquet}"
-    GCS_OUTPUT_PATH="gs://$GCP_BUCKET/$OUTPUT_FILE"
-    LOCAL_OUTPUT_PATH="$LOCAL_OUTPUT_DIR/$OUTPUT_FILE"
-    ;;
-  note)
-    TABLE_ID="note"
-    OUTPUT_FILE="${OUTPUT_FILE:-medalign-aaai_confidential_notes}"
-    # Full path for the cloud and local output with wildcard for sharding
-    GCS_OUTPUT_PATH="gs://$GCP_BUCKET/${OUTPUT_FILE}_*.parquet"
-    LOCAL_OUTPUT_PATH="$LOCAL_OUTPUT_DIR/$OUTPUT_FILE/"
-    ;;
-  *)
-    OUTPUT_FILE="${OUTPUT_FILE:-$TABLE_ID.parquet}"
-    GCS_OUTPUT_PATH="gs://$GCP_BUCKET/$OUTPUT_FILE"
-    LOCAL_OUTPUT_PATH="$LOCAL_OUTPUT_DIR/$OUTPUT_FILE"
-    ;;
-esac
+# case "$TABLE_ID" in
+#   aaai_release_note)
+#     TABLE_ID="aaai_release_note"
+#     OUTPUT_FILE="${OUTPUT_FILE:-medalign-aaai_release_notes.parquet}"
+#     GCS_OUTPUT_PATH="gs://$GCP_BUCKET/$OUTPUT_FILE"
+#     LOCAL_OUTPUT_PATH="$LOCAL_OUTPUT_DIR/$OUTPUT_FILE"
+#     ;;
+#   note)
+#     TABLE_ID="note"
+#     OUTPUT_FILE="${OUTPUT_FILE:-medalign-aaai_confidential_notes}"
+#     # Full path for the cloud and local output with wildcard for sharding
+#     GCS_OUTPUT_PATH="gs://$GCP_BUCKET/${OUTPUT_FILE}_*.parquet"
+#     LOCAL_OUTPUT_PATH="$LOCAL_OUTPUT_DIR/$OUTPUT_FILE/"
+#     ;;
+#   *)
+#     OUTPUT_FILE="${OUTPUT_FILE:-$TABLE_ID.parquet}"
+#     GCS_OUTPUT_PATH="gs://$GCP_BUCKET/$OUTPUT_FILE"
+#     LOCAL_OUTPUT_PATH="$LOCAL_OUTPUT_DIR/$OUTPUT_FILE"
+#     ;;
+# esac
+
+OUTPUT_FILE="${OUTPUT_FILE:-medalign-aaai_release_notes.parquet}"
+GCS_OUTPUT_PATH="gs://$GCP_BUCKET/$OUTPUT_FILE"
+LOCAL_OUTPUT_PATH="$LOCAL_OUTPUT_DIR/$OUTPUT_FILE"
 
 # Create the output directory if it doesn't exist
 mkdir -p "$LOCAL_OUTPUT_DIR"

@@ -1,6 +1,9 @@
 #!/bin/bash
 
-# Usage: ./run_fact_decomp_prompt_tuning_experiment.sh <request_file> <model> <client> [splits]
+# Usage: ./run_inference_client.sh <request_file> <model> <client> [splits] [max_tokens]
+
+# example 
+# scripts/experiments/run_inference_client.sh "data/datasets/prompted_sampled/fact_decomposition_20241008.jsonl" "meta-llama/Meta-Llama-3-8B-Instruct" "transformers"
 
 # example 
 # scripts/experiments/run_fact_decomp_prompt_tuning_experiment.sh "data/datasets/prompted_sampled/fact_decomposition_20241008.jsonl" "meta-llama/Meta-Llama-3-8B-Instruct" "transformers"
@@ -13,24 +16,14 @@ REQUEST_FILE="$1"  # Input request file as first argument
 models=("$2")      # Model name as second argument
 client="$3"        # Client type as third argument
 SPLITS="${4:-25}"  # Optional splits argument with default of 25
-
-MAX_TOKENS=4000
+MAX_TOKENS="${5:-4000}" # max tokens for generation
+GPT_ENDPOINT="${6:-https://shcopenaisandbox.openai.azure.com/openai/deployments/shc-gpt-4o/chat/completions?api-version=2023-03-15-preview}" # Default endpoint
 
 # Other necessary variables
 save_directory="${FACTEHR_DATA_ROOT}/datasets/completions/test/"
-splits_directory="${save_directory}/splits"  # New directory for splits
+splits_directory_base="${save_directory}/splits"  # New directory for splits
 generation_config="src/factehr/clients/generation_params.json"
-expected_cost=300
-
-# Define OpenAI parameters
-openai_request_url="https://shcopenaisandbox.openai.azure.com/openai/deployments/shc-gpt-4o/chat/completions?api-version=2023-03-15-preview"
-
-# clear it first, then create splits directory
-if [ -d "$splits_directory" ]; then
-  rm -r "$splits_directory"
-fi
-
-mkdir -p "$splits_directory"
+expected_cost=3000
 
 # Function to split the input file for parallel processing
 split_input_file() {
@@ -39,7 +32,14 @@ split_input_file() {
     local output_dir=$3
 
     echo "Splitting $input_file into $num_splits parts..."
-    split -l $(( $(wc -l < "$input_file") / num_splits )) -d -a 2 "$input_file" "$output_dir/split_"
+    # Calculate lines per split and ensure it's at least 1
+    lines_per_split=$(( $(wc -l < "$input_file") / num_splits ))
+    if [ "$lines_per_split" -lt 1 ]; then
+        lines_per_split=1
+    fi
+
+    split -l "$lines_per_split" -d -a 2 "$input_file" "$output_dir/split_"
+
 }
 
 echo "Processing request file: $REQUEST_FILE with max tokens: $MAX_TOKENS"
@@ -47,22 +47,31 @@ echo "Processing request file: $REQUEST_FILE with max tokens: $MAX_TOKENS"
 # Split the input file if the client is vertex or openai
 if [[ "$client" == "vertex" || "$client" == "openai-batch" ]]; then
 
-    echo "Deleting existing split files in $splits_directory..."
-    rm -f "$splits_directory"/split_*.jsonl  # Removes files matching the split pattern
-
-    split_input_file "$REQUEST_FILE" "$SPLITS" "$splits_directory"
-    a=0
-    for file in "$splits_directory"/split_*; do
-        mv "$file" "${file}.jsonl"
-        a=$((a + 1))
-    done
-
     # Loop through each model and launch jobs in tmux
     for model in "${models[@]}"; do
         echo "Running inference for model: $model on request file"
 
         # Define the save path, combining the save_directory and model name
         model_safe_name=$(echo "$model" | sed 's/\//_/g')
+
+        splits_directory="${splits_directory_base}/${model_safe_name}/splits"
+
+        echo "Deleting existing split files in $splits_directory..."
+        # rm -f "$splits_directory"/split_*.jsonl  # Removes files matching the split pattern
+
+        clear it first, then create splits directory
+        if [ -d "$splits_directory" ]; then
+        rm -r "$splits_directory"
+        fi
+
+        mkdir -p "$splits_directory"
+
+        split_input_file "$REQUEST_FILE" "$SPLITS" "$splits_directory"
+        a=0
+        for file in "$splits_directory"/split_*; do
+            mv "$file" "${file}.jsonl"
+            a=$((a + 1))
+        done
 
         # Loop through all split files in the split directory
         for split_file in "$splits_directory"/split_*.jsonl; do
@@ -92,7 +101,7 @@ if [[ "$client" == "vertex" || "$client" == "openai-batch" ]]; then
                     python src/factehr/clients/azure_openai_api_parallel.py \
                         --requests_filepath \"$split_file\" \
                         --save_filepath \"$save_filepath\" \
-                        --request_url \"$openai_request_url\" \
+                        --request_url \"$GPT_ENDPOINT\" \
                         --model_name \"$model\" \
                         --generation_config \"$generation_config\" \
                         --max_tokens_per_generation \"$MAX_TOKENS\" \
