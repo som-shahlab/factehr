@@ -1,0 +1,9 @@
+{
+    "requests_directory": "data/datasets/nli_prompted",  
+    "save_directory": "data/datasets/completions/test/",
+    "generation_config": "src/factehr/clients/generation_params.json",
+    "models": [
+        "meta-llama/Meta-Llama-3.1-8B-Instruct"
+    ],
+    "uid_string": "custom_id"
+}
