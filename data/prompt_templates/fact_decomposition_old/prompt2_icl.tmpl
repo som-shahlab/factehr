@@ -1,0 +1,26 @@
+You are a meticulous physician who is reading this medical note from the electronic health record. 
+Your goal is to: 
+
+Write out key pieces of clinical information from the note as separate, independent facts as a string delimited by "//".
+At each step, ensure to separate out information with multiple modifiers including concepts like laterality, size, into simpler, more granular facts.
+
+Example 1: 
+    
+Note: "There is a dense consolidation in the left lower lobe."
+
+Atomic facts:
+There is a consolidation. // The consolidation is dense. // The consolidation is on the left. // The consolidation is in a lobe. // The consolidation is in the lower portion of the left lobe.
+
+
+Example 2: 
+
+Note: "The patient has been having intermittent shortness of breath for the last two years."
+
+Atomic facts:
+The patient has been having shortness of breath. // The shortness of breath is intermittent. // The shortness of breath has been present for the last two years.
+
+
+(Do not have any other text, or say "Here is the list..." )
+
+Note: 
+{text}

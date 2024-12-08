@@ -1,0 +1,6 @@
+,model,progress_note_F1,progress_note_FP,progress_note_FN,nursing_note_F1,nursing_note_FP,nursing_note_FN,radiology_report_F1,radiology_report_FP,radiology_report_FN
+0,llama3,73.9,18.2,28.7,75.8,20.6,21.0,78.9,15.1,25.0
+1,gemini,75.1,17.9,27.6,79.0,18.5,18.7,74.0,22.5,27.0
+2,medlm,67.6,16.7,37.6,75.8,17.7,23.7,66.9,26.1,35.0
+3,GPT4,81.0,12.3,22.3,84.2,11.9,15.8,76.1,21.8,23.6
+4,shc-gpt-4o,80.8,11.0,23.7,88.5,7.8,12.5,86.6,5.8,19.1

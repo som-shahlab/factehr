@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[project]
+name = "factehr"
+version = "0.1.0"
+dependencies = [
+    "numpy>=1.26.4",
+    "pandas>=2.2.2",
+    "dask>=2024.8.1",
+    "distributed>=2024.8.1",
+    "dask-expr>=1.1.11",
+    "langchain_core>=0.2.33",
+    "tiktoken>=0.7.0",
+    "azure-identity>=1.17.1",
+    "datasets>=2.21.0",
+    "spacy>=3.5.4",
+    "medspacy>=1.2.0",
+    "openai>=1.42.0",
+    "pytest>=8.3.2",
+    "torch>=2.2.2",
+    "transformers>=4.44.2",
+    "accelerate>=0.33.0",
+    "bitsandbytes>=0.43.3",
+    "scikit-learn>=1.2.1",
+    "vertexai>=1.67.1"
+]
+requires-python = ">=3.8"
+authors = [{ name = "Jason Alan Fries", email = "jason-fries@stanford.edu" }]
+maintainers = [
+    { name = "Jason Alan Fries", email = "jason-fries@stanford.edu" },
+]
+description = "Fact decomposition for clinical text"

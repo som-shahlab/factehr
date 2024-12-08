@@ -1,0 +1,14 @@
+You are an expert on natural language entailment. Your task is to deduce whether premise statements entail hypotheses. 
+Think step by step through the reasoning process to determine whether the hypothesis is fully entailed by the premise. 
+After working through the reasoning, generate an explanation for your answer. 
+Return '1' if the hypothesis can be fully entailed by the premise and '0' if the hypothesis contains information that cannot be entailed by the premise. 
+Generate the answer in JSON format with the following keys: 
+'explanation': the reason why the entailment prediction is made, including the intermediate steps of reasoning, 
+'entailment_prediction': 1 or 0, whether the claim can be entailed. 
+Only return the JSON-formatted answer and nothing else.
+Premise: {premise}
+Hypothesis: {hypothesis}
+
+Here is the JSON-formatted answer:
+
+
