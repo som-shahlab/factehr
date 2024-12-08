@@ -79,13 +79,13 @@ def load_prompt_template(in_path):
         template = PromptTemplate.from_template(template=text, name=in_path.split(".")[0])
     return template
 
-def create_entailment_dataset(model_output_file, output_file, notes_dir, prompt_template_file):
+def create_entailment_dataset(model_output_file, output_file, notes_dir, prompt_template_file, model_name):
     """
     Creates a JSONL dataset for entailment tasks based on model-generated facts and original notes.
     This version utilizes an external prompt template.
     """
 
-    def process_entailment_example(example, premise, hypotheses, entailment_type):
+    def process_entailment_example(example, premise, hypotheses, entailment_type, model_name):
         """Helper function to process entailment examples."""
         entailment_examples = []
         for i, hypothesis in enumerate(hypotheses):
@@ -100,7 +100,8 @@ def create_entailment_dataset(model_output_file, output_file, notes_dir, prompt_
                     "custom_id": f"{example[2]['metadata']['uid']}|{i}|{entailment_type}",
                     "metadata": example[2]['metadata'],
                     "premise": premise,
-                    "hypothesis": hypothesis
+                    "hypothesis": hypothesis,
+                    "model_name": model_name
                 },
                 "messages": [{"role": "user", "content": prompt}]
             }
@@ -126,24 +127,29 @@ def create_entailment_dataset(model_output_file, output_file, notes_dir, prompt_
                 dataset_name = example[2]['metadata']["dataset_name"]
                 note_dataset = get_note_dataset(dataset_name, notes_dir)
                 original_note = note_dataset.loc[note_dataset['doc_id'] == doc_id]['note_text'].values[0] # Retrieve note content using doc_id
+                
+                if 'content' in example[1]["choices"][0]["message"]:
+                    # Process precision entailment (first case)
+                    premise = original_note
+                    hypotheses = example[1]["choices"][0]["message"]["content"].split("//")
+                    print(f"{len(hypotheses)} hypotheses from fact set")
+                    entailment_examples = process_entailment_example(example, premise, hypotheses, "precision", model_name)
+                    for entailment_example in entailment_examples:
+                        json.dump(entailment_example, outfile)
+                        outfile.write('\n')
 
-                # Process precision entailment (first case)
-                premise = original_note
-                hypotheses = example[1]["choices"][0]["message"]["content"].split("//")
-                print(f"{len(hypotheses)} hypotheses from fact set")
-                entailment_examples = process_entailment_example(example, premise, hypotheses, "precision")
-                for entailment_example in entailment_examples:
-                    json.dump(entailment_example, outfile)
-                    outfile.write('\n')
-
-                # Process recall entailment (second case)
-                premise = example[1]["choices"][0]["message"]["content"]  # Entire generated fact set
-                hypotheses = process_clinical_note(original_note)
-                print(f"{len(hypotheses)} hypotheses from original note")
-                entailment_examples = process_entailment_example(example, premise, hypotheses, "recall")
-                for entailment_example in entailment_examples:
-                    json.dump(entailment_example, outfile)
-                    outfile.write('\n')
+                    # Process recall entailment (second case)
+                    premise = example[1]["choices"][0]["message"]["content"]  # Entire generated fact set
+                    hypotheses = process_clinical_note(original_note)
+                    print(f"{len(hypotheses)} hypotheses from original note")
+                    entailment_examples = process_entailment_example(example, premise, hypotheses, "recall", model_name)
+                    for entailment_example in entailment_examples:
+                        json.dump(entailment_example, outfile)
+                        outfile.write('\n')
+                
+                else: # if 'content' does not exist (eg due to content filter)
+                    continue
+                    
 
 
 def main():
@@ -152,6 +158,7 @@ def main():
     parser.add_argument("--output_file", required=True, help="Path to the output JSONL file")
     parser.add_argument("--notes_dir", required=True, help="Directory containing clinical notes datasets")
     parser.add_argument("--prompt_template", required=True, help="Path to the prompt template file")
+    parser.add_argument("--model_name", required=True, help="model used for fact decomposition")
 
     args = parser.parse_args()
 
@@ -159,7 +166,8 @@ def main():
         model_output_file=args.model_output,
         output_file=args.output_file,
         notes_dir=args.notes_dir,
-        prompt_template_file=args.prompt_template
+        prompt_template_file=args.prompt_template,
+        model_name=args.model_name
     )
 
 if __name__ == "__main__":

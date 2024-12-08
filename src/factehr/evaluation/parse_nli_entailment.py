@@ -44,7 +44,16 @@ def parse_entailment(row):
     else:
         return None   
 
-
+# Parse the custom_id column
+def parse_and_assign(custom_id):
+    parsed = parse_custom_id(custom_id)
+    if len(parsed) == 4:
+        return pd.Series(parsed, index=['dataset', 'split', 'uid', 'prompt'])
+    elif len(parsed) == 6:
+        return pd.Series(parsed, index=['doc_id', 'dataset_name', 'note_type', 'prompt', 'index', 'entailment_type'])
+    else:
+        return pd.Series([None] * 6)
+        
 def parse_message_from_choices(x):
     """Parses 'choices' field and returns the content from 'message'."""
     return x['choices'][0]['message']['content'] if 'choices' in x and isinstance(x['choices'], list) else None
@@ -165,15 +174,6 @@ def main():
     df_combined = process_all_jsonl_files(jsonl_directory)
     
     # post processing and parsing
-    # Parse the custom_id column
-    def parse_and_assign(custom_id):
-        parsed = parse_custom_id(custom_id)
-        if len(parsed) == 4:
-            return pd.Series(parsed, index=['dataset', 'split', 'uid', 'prompt'])
-        elif len(parsed) == 6:
-            return pd.Series(parsed, index=['doc_id', 'dataset_name', 'note_type', 'prompt', 'index', 'entailment_type'])
-        else:
-            return pd.Series([None] * 6)
 
     # Apply the function to parse and assign columns based on the length of the parsed result
     parsed_custom_id = df_combined.apply(lambda row: parse_and_assign(row['custom_id']), axis=1)

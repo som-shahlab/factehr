@@ -58,15 +58,21 @@ def estimate_request_limits(
     pricing_inputs = {"GPT-4": 0.03, 
                       "GPT4-32k": 0.06, 
                       "shc-gpt-4o": 0.005, 
+                      "gpt-4o": 0.005, 
                       "gemini-1.5-flash-002": 0.000075,
                       "medlm-medium": 0.000075,
-                      "gemini-1.5-pro-002": 0.00125}
+                      "gemini-1.5-pro-002": 0.00125,
+                      "o1-mini": 0.005,
+                      "o1-preview": 0.005} # note that o1 mini has no listed prices
     pricing_outputs = {"GPT-4": 0.06, 
                        "GPT4-32k": 0.12, 
                        "shc-gpt-4o": 0.015, 
+                       "gpt-4o": 0.015, 
                        "gemini-1.5-flash-002": 0.0003,
                        "medlm-medium": 0.0003,
-                       "gemini-1.5-pro-002": 0.005}
+                       "gemini-1.5-pro-002": 0.005,
+                       "o1-mini": 0.015,
+                       "o1-preview": 0.015} # note that o1 mini has no listed prices
     
     total_input_costs = {}
     total_output_costs = {}

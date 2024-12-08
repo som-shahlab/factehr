@@ -132,3 +132,23 @@ This command runs the full experiment pipeline.
 
 `scripts/experiments/run_nli_prompt_tuning_experiment.sh <csv_output_path> <final_metrics_output_path> | tee output.log` 
 
+#### 2. Running fact decomposition and entailment 
+
+Fact decomposition and entailment both involve running prompts through an LLM client. Once you have a prompted dataset (a jsonl file with the prompted inputs), you can run `scripts/experiments/run_inference_client.sh` with a command like
+
+```bash
+scripts/experiments/run_inference_client.sh [PATH TO PROMPTED JSONL DATA] [MODEL NAME] [CLIENT NAME] [N TMUX SESSIONS] [MAX OUTPUT TOKENS]
+```
+
+Example command:
+```bash
+scripts/experiments/run_inference_client.sh data/datasets/prompted/fact_decomposition_20241009_medalign.jsonl "gemini-1.5-flash-002" "vertex" 5 4000
+```
+
+The flow for our experiments is:
+
+1. Generate a prompted dataset for fact decomposition (`scripts/init_all_datasets.sh`)
+2. Perform fact decomposition (`scripts/experiments/run_inference_client.sh`)
+3. Break down the fact decomposition into entailment pairs (`scripts/experiments/create_entailment_file_from_fact_decomp.sh`)
+4. Perform entailment evaluation using LLM as judge (`scripts/experiments/run_inference_client.sh`)
+
