@@ -1,0 +1,57 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.class
+
+# Virtual environment
+env/
+venv/
+ENV/
+myenv/
+myenv/*
+.conda/
+
+# Instance folder
+instance/
+
+# Pytest
+.cache
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# macOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+ehthumbs.db
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# sound files
+*.wav
+*.m4a
+*.mp3
+
+#google api creds
+service_account.json
+
+# Flask specific
+*.db
+*.sqlite
+sessions
+
+# Environment variables
+.env
+
+*.txt
+
+.DS_Store
+*.log
