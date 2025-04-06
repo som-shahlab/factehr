@@ -40,10 +40,10 @@ This document is updated as code is optimized to improve performance.
 
 ```bash
 python src/factehr/clients/<APPROACH>.py \
---deployment shc-gpt-4o \
+--deployment gpt-4o \
 --max_tokens 4096 \
 --path_to_prompted_dataset factdecomp_benchmark.jsonl \
---path_to_output_file shc-gpt-4o_benchmark_output.jsonl
+--path_to_output_file gpt-4o_benchmark_output.jsonl
 ```
 
 ### B. Entailment
