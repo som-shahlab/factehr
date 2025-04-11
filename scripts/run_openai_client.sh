@@ -1,33 +1,5 @@
 #!/bin/bash
 
-# Runs inference on the OpenAI client, looping across files in a specified directory and models.
-# References a configuration file (JSON format) that provides paths, settings, and model details.
-# The script processes each .jsonl file in the requests directory for each model listed in the config file,
-# and saves the results with a model-specific filename in the designated output directory.
-#
-# The configuration file should have the following structure:
-# {
-#   "requests_directory": "path/to/requests_directory",    # Directory containing the input .jsonl files
-#   "save_directory": "path/to/save_directory",            # Directory to store the output files
-#   "request_url": "https://api.openai.com/v1/chat/completions",  # API endpoint URL
-#   "generation_config": "path/to/generation_config.json",  # Path to generation configuration JSON file
-#   "models": ["gpt-4", "gpt-3.5-turbo"]                   # List of model names to run inference on
-# }
-#
-# The script uses jq to parse the JSON configuration file, loops over .jsonl files in the requests directory,
-# and runs inference on each file using each model specified in the config.
-# The output for each model is saved to the save directory with a model-specific filename.
-#
-# Usage:
-#   ./src/factehr/clients/run_openai_client.sh <config_filepath>
-#
-# Example:
-#   ./src/factehr/clients/run_openai_client.sh config.json
-#
-# The resulting output files will be saved with the format:
-#   <save_directory>/<base_filename>_<model>.jsonl
-# where <base_filename> is the name of the input .jsonl file without the extension and <model> is the model name.
-
 # Check if correct number of arguments are passed
 if [ "$#" -ne 1 ]; then
     echo "Usage: ./src/factehr/clients/run_openai_client.sh <config_filepath>"
