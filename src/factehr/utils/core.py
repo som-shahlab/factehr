@@ -33,7 +33,6 @@ def load_jsonl(file_path: str) -> Generator[Dict[str, Any], None, None]:
 
 
 def split_facts(text: str, exclude: List[str] = None) -> List[str]:
-    """Modifed from Monica 8-14-2024"""
     # skip some pathological fact generations
     exclude = {":", ""} if exclude is None else exclude
     # Remove any leading text like "##  Independent Facts:"
