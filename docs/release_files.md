@@ -1,7 +1,5 @@
 # Data Dictionary
 
-All release files are located in `akshaysw@carina:/share/pi/nigam/akshays/just-the-facts/data/manuscript/release_files_120824/release_files_final/`.
-
 ## `combined_notes_110424.csv`
 This file contains all clinical notes from which FactEHR is derived.
 
