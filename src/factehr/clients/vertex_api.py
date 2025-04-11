@@ -1,21 +1,3 @@
-'''
-Documentation: 
-https://cloud.google.com/vertex-ai/generative-ai/docs/reference/python/latest/vertexai.preview.generative_models#generationconfig
-https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models?hl=en#gemini-1.5-flash
-
-Sample command:
-
-python src/factehr/clients/vertex_api.py \
-  --input_jsonl data/datasets/prompted/merged_20240925_154212.jsonl \
-  --output_jsonl data/datasets/completions/gemini-1.5-flash-001_20240925_TEST.jsonl \
-  --model_name "medlm-medium" \
-  --generation_config "src/factehr/clients/generation_params.json" \
-  --max_retries 3 \
-  --max_new_tokens 256
-
-'''
-
-
 import vertexai
 from vertexai.generative_models import GenerativeModel, GenerationConfig
 import vertexai.preview.generative_models as generative_models
@@ -46,12 +28,8 @@ def generate(prompt, model_name, generation_config, max_tokens, max_retries=2, r
     Returns:
         list: A list of generated response texts or an error message.
     """
-    vertexai.init(project="som-nero-phi-nigam-starr", location="us-central1")
+    vertexai.init(project="...", location="us-central1")
     model = GenerativeModel(model_name)
-    
-    # gen_config = {"temperature": generation_config["generation"]["temperature"],
-    #               "topP": generation_config["generation"]["top_p"],
-    #               "maxOutputTokens": max_tokens}
     
     for attempt in range(max_retries):
         try:
