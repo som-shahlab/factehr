@@ -1,29 +1,3 @@
-""" 
-Load legacy FactEHR document samples and JOIN with the original datasets to  
-establish provenance of the documents. Guiding principles:
-
-- Use the original dataset distribution files to sample the documents.
-- Preserve all row information from the original dataset.
-- Use the `note_id` as the primary key to JOIN the datasets.
-
-NOTE / TODO The Dask code is a memory hog and could be replaced for simplicity.
-
-Example usage:
-
-python scripts/hotfixes/get_note_provenance.py \
---path_to_legacy /Users/jfries/Desktop/just-the-facts-doc/raw_20240812 \
---path_to_input data/datasets/raw/ \
---path_to_output data/datasets/
-
-
-python scripts/hotfixes/get_note_provenance.py \
---path_to_legacy /Users/jfries/Desktop/hotfix/raw_20240812 \
---path_to_input data/datasets/raw/ \
---path_to_output data/datasets/
-
-
-"""
-
 import gc
 import os
 import re
