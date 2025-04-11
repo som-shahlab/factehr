@@ -4,7 +4,7 @@
 python src/factehr/clients/azure_openai_api_parallel.py \
 --requests_filepath data/datasets/prompted/fact_decomposition_20240821.jsonl \
 --save_filepath data/datasets/completions/debug-parallel.jsonl \
---request_url "https://shcopenaisandbox.openai.azure.com/openai/deployments/shc-gpt-4o/chat/completions?api-version=2023-03-15-preview" \
+--request_url "../chat/completions?api-version=2023-03-15-preview" \
 --max_requests_per_minute 480 \
 --max_tokens_per_minute 80000 \
 --token_encoding_name cl100k_base \
@@ -16,7 +16,7 @@ python src/factehr/clients/azure_openai_api_parallel.py \
 python src/factehr/clients/azure_openai_api_parallel.py \
 --requests_filepath data/datasets/prompted/fact_decomposition_20240821.jsonl \
 --save_filepath data/datasets/completions/debug-parallel.jsonl \
---request_url "https://shcopenaisandbox.openai.azure.com/openai/deployments/GPT4/chat/completions?api-version=2023-03-15-preview" \
+--request_url "../chat/completions?api-version=2023-03-15-preview" \
 --max_requests_per_minute 480 \
 --max_tokens_per_minute 80000 \
 --token_encoding_name cl100k_base \
