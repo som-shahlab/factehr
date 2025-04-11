@@ -19,35 +19,9 @@
 - **`fast_ct_sentence_splitter`:** A faster, rule-based sentence splitter.
 - **`ct_sentence_splitter`:** A slower, more aggressive rule-based sentence splitter that splits on two spaces.
 
-**Pros:**
-
-- Fast execution.
-
-**Cons:**
-
-- Highly customized for Stanford Health Care (SHC) clinical text, making it a non-standard framework.
-
 ### 2. Default SpaCy (`en_core_web_sm`)
-
-**Pros:**
-
-- Standard NLP framework widely used in the industry.
-
-**Cons:**
-
-- Less accurate when applied to clinical text.
 
 ### 3. [MedSpaCy](https://github.com/medspacy/medspacy)
 
 - MedSpaCy includes a Python implementation of RuSH ([Ru]le-based sentence [S]egmenter using [H]ashing).
-
-**Pros:**
-
-- Somewhat popular framework specifically for clinical NLP.
-
-**Cons:**
-
-- Slower compared to Trove and SpaCy.
-- Does not support multiprocessing for batch processing.
-- Alters dependency defaults—importing the module loads code (`medspacy._extensions`) that interferes with general SpaCy multiprocessing.
 
