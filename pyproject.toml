@@ -30,8 +30,4 @@ dependencies = [
     "vertexai>=1.67.1"
 ]
 requires-python = ">=3.8"
-authors = [{ name = "Jason Alan Fries", email = "jason-fries@stanford.edu" }]
-maintainers = [
-    { name = "Jason Alan Fries", email = "jason-fries@stanford.edu" },
-]
 description = "Fact decomposition for clinical text"
