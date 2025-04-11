@@ -15,7 +15,7 @@ source ../conda/miniconda3/etc/profile.d/conda.sh
 conda activate H100
 
 # setup auth tokens and other env variables
-source /home/jfries/setup-env-vars.sh
+source ../setup-env-vars.sh
 
 CODE_ROOT="../code/rag-the-facts"
 MODEL_NAME="meta-llama/Meta-Llama-3.1-8B-Instruct"
