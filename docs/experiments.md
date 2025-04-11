@@ -21,7 +21,6 @@ Download source datasets from PhysioNet and SHC. Saves to `data/datasets/`
 - `wget` installed (on MacOS use [homebrew](https://brew.sh/) `brew install wget`)
 - gcloud CLI installed (see [instructions](https://cloud.google.com/sdk/docs/install)) and authenticated `gcloud auth login`
 - PhysioNet credentialed account and per-dataset signed DUAs
-- You must be connected to the Stanford VPN to download SHC datasets (MedAlign)
 - Authenticated with huggingface `huggingface-cli login`
 
 ```bash
@@ -99,7 +98,7 @@ leverages shc-gpt-4o (requires SHC VPN) and vertex API (requires Full Traffic VP
 First set the following:
 ```bash
 export HUGGINGFACE_HUB_TOKEN={your token here — only needed when running transformers client}
-export FACTEHR_DATA_ROOT={something like /share/pi/nigam/akshays/just-the-facts/data/}
+export FACTEHR_DATA_ROOT={something like ../just-the-facts/data/}
 ```
 
 Next download the entailment datasets to the data directory. Because MedNLI comes from Physionet, run this first:
@@ -112,11 +111,11 @@ Download the entailment datasets by running:
 
 The one dataset that will not be downloaded from the above scripts is FactEHR (v0 — clinician annotated dev set). This is currently saved on carina here:
 
-`/share/pi/nigam/akshays/just-the-facts/data/datasets/raw/entailment/factehr.csv`
+`../just-the-facts/data/datasets/raw/entailment/factehr.csv`
 
 Copy that file into this location: `{$FACTEHR_DATA_ROOT}/datasets/raw/entailment/factehr.csv`
 
-As of 10/2/24, the following path on carina contains all NLI test sets needed for this experiment — instead of compiling the datasets locally you can copy over the contents of this folder into your directory: `/share/pi/nigam/akshays/just-the-facts/data/datasets/raw/entailment/`
+As of 10/2/24, the following path on carina contains all NLI test sets needed for this experiment — instead of compiling the datasets locally you can copy over the contents of this folder into your directory: `../just-the-facts/data/datasets/raw/entailment/`
 
 To run the experiment pipeline, first adjust the config settings here as needed: `scripts/experiments/run_nli_prompt_tuning_experiment.sh`
 
