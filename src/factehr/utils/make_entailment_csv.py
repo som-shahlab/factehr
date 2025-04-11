@@ -1,36 +1,3 @@
-"""
-    Processes entailment predictions from a JSONL file and outputs a cleaned CSV file.
-
-    This function takes as input a JSONL file containing entailment predictions, processes
-    the data by extracting metadata, model outputs, and entailment predictions, and then 
-    saves the results to a CSV file. The processed CSV contains columns such as 'uid', 
-    'doc_id', 'dataset_name', 'entailment_type', 'model_name', and the entailment predictions.
-
-    Args:
-        input_path (str): The file path to the input JSONL file containing entailment predictions.
-        output_path (str): The file path to save the processed output as a CSV file.
-
-    Example:
-        Run this script from the command line with the following command:
-        
-        $ python src/factehr/utils/make_entailment_csv.py --input_path /path/to/input.jsonl --output_path /path/to/output.csv
-
-        This will process the input JSONL file and save the processed entailment predictions 
-        to the specified CSV file.
-
-    Notes:
-        - The input JSONL file is expected to have metadata, choices, and entailment predictions.
-        - The function uses helper functions like `parse_message_from_choices`, `parse_error_string`,
-          `extract_json_from_string`, `parse_entailment`, and `parse_and_assign` from the imported
-          modules to process the data.
-        - Ensure the input JSONL file is in the correct format, or the script may raise errors.
-
-    Raises:
-        ValueError: If any of the required fields in the metadata are missing or malformed.
-        FileNotFoundError: If the specified input JSONL file does not exist.
-"""
-
-
 import os
 import sys
 import json
