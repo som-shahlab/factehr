@@ -15,13 +15,13 @@ import os
 # ]
 
 # # Write the sample data to a JSONL file
-sample_data_file = "/local-scratch/shahlab/akshaysw/just-the-facts/data/datasets/prompted_sampled/entailment_test.jsonl"
+sample_data_file = "../just-the-facts/data/datasets/prompted_sampled/entailment_test.jsonl"
 # with open(sample_data_file, "w") as file:
 #     for item in sample_data:
 #         file.write(json.dumps(item) + "\n")
 
 # Define output file and generation parameters
-output_file = "/local-scratch/shahlab/akshaysw/just-the-facts/data/datasets/prompted_sampled/entailment_test_results.jsonl"
+output_file = "../just-the-facts/data/datasets/prompted_sampled/entailment_test_results.jsonl"
 generation_params = {
     "generation": {
         "temperature": 1,
@@ -30,7 +30,7 @@ generation_params = {
 }
 
 # Write the generation parameters to a JSON file
-generation_params_file = "/local-scratch/shahlab/akshaysw/just-the-facts/src/factehr/clients/generation_params.json"
+generation_params_file = "../just-the-facts/src/factehr/clients/generation_params.json"
 with open(generation_params_file, "w") as file:
     json.dump(generation_params, file)
 
