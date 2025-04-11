@@ -5,10 +5,6 @@ Fact decomposition of clinical text data involves sentence splitting to
 generate entailment pairs. This script preprocesses clinical text data 
 using clinical text tokenization and sentence splitting.
 
-NOTE This is not written for large-scale processing, out-of-the-box. Scaling
-to all of SHC would require additional optimizations around sharding input data
-to avoid memory issues.
-
 Example Usage:
 
 python scripts/build_docbin_dataset.py \
