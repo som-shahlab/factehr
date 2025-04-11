@@ -1,7 +1,7 @@
 library(dplyr)
 library(ggplot2)
 
-in_path <- "/Users/akshayswaminathan/just-the-facts/data/datasets/output/metrics_by_group.csv"
+in_path <- "../just-the-facts/data/datasets/output/metrics_by_group.csv"
 
 in_df <- readr::read_csv(in_path)
 
@@ -134,7 +134,7 @@ in_df %>%
   ylab("")
 
 #########
-in_path <- "/Users/akshayswaminathan/just-the-facts/data/datasets/output/nli_benchmarking.csv"
+in_path <- "../just-the-facts/data/datasets/output/nli_benchmarking.csv"
 
 df <- readr::read_csv(in_path)
 
@@ -146,7 +146,7 @@ df %>%
   pull(model_output)
 
 ######
-in_path <- "/Users/akshayswaminathan/just-the-facts/data/datasets/prompted_sampled/entailment_for_now.csv"
+in_path <- "../just-the-facts/data/datasets/prompted_sampled/entailment_for_now.csv"
 other_models_df <- readr::read_csv(in_path)
 
 o1_path <- "~/Downloads/gpt_o1_entailment.csv"
@@ -218,13 +218,13 @@ entailment_by_note %>%
         legend.title = element_blank())
 
 ####
-in_path <- "/Users/akshayswaminathan/just-the-facts/data/datasets/raw/entailment/factehr/factehr.csv"  
+in_path <- "../just-the-facts/data/datasets/raw/entailment/factehr/factehr.csv"  
 in_df <- readr::read_csv(in_path)  
 
 in_df$human_label %>% mean()
 
 ####
-in_path <- "/Users/akshayswaminathan/just-the-facts/data/datasets/output/nli_benchmarking.csv"  
+in_path <- "../just-the-facts/data/datasets/output/nli_benchmarking.csv"  
 in_df <- readr::read_csv(in_path)  
 in_df %>% 
   filter(model == "shc-gpt-4o",
@@ -301,11 +301,11 @@ map2(task_df$data, task_df$annotator, ~openxlsx::write.xlsx(.x, file = glue::glu
 
 
 ### get new medalign data to annotate
-annotation_df <- readr::read_csv("/Users/akshayswaminathan/Downloads/annotation_file_111024.csv")
-precision_sentences <- readr::read_csv("/Users/akshayswaminathan/Downloads/release_files_final/precision_hypotheses_110424.csv")
-recall_sentences <- readr::read_csv("/Users/akshayswaminathan/Downloads/release_files_final/recall_hypotheses_110424.csv")
-notes <- readr::read_csv("/Users/akshayswaminathan/Downloads/release_files_final/combined_notes_110424.csv")
-fact_decomps <- readr::read_csv("/Users/akshayswaminathan/Downloads/release_files_final/fact_decompositions_110424.csv") %>% 
+annotation_df <- readr::read_csv("../Downloads/annotation_file_111024.csv")
+precision_sentences <- readr::read_csv("../Downloads/release_files_final/precision_hypotheses_110424.csv")
+recall_sentences <- readr::read_csv("../Downloads/release_files_final/recall_hypotheses_110424.csv")
+notes <- readr::read_csv("../Downloads/release_files_final/combined_notes_110424.csv")
+fact_decomps <- readr::read_csv("../Downloads/release_files_final/fact_decompositions_110424.csv") %>% 
   mutate(model_name = case_when(model %in% c("shc-gpt-4o", "gpt-4o") ~ "final_merged_shc-gpt-4o_max4000",
                            model == "meta-llama/Meta-Llama-3-8B-Instruct" ~ "merged_meta-llama_Meta-Llama-3-8B-Instruct_split__max4000",
                            model == "o1-mini" ~ "final_merged_o1-mini_max16000",
