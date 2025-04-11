@@ -4,14 +4,6 @@ Score entailment pairs for fact decomposition of documents. Results for
 
 XXX entailment pairs generated from 2000 Notes X 5 LLMs X 4 Prompts
 
-USAGE EXAMPLE:
-
-python src/factehr/evaluation/score_entailment_pairs.py \
---path_to_input /Users/jfries/Desktop/just-the-facts-doc/entailment_final/ \
---path_to_output data/manuscript/entailment_pair_scores.tsv \
---map_unparseable_json 0 \
---filter_on note_type:discharge_summary
-
 """
 
 import re
