@@ -4,6 +4,6 @@
     "request_url": "../chat/completions?api-version=2023-03-15-preview",
     "generation_config": "src/factehr/clients/generation_params.json",
     "models": [
-        "shc-gpt-4o"
+        "gpt-4o"
     ]
 }
