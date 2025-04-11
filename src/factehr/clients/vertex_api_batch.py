@@ -1,26 +1,3 @@
-"""
-Run Vertex AI batch script
-
-Documentation: https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/batch-prediction-api?authuser=4
-
-Note only some Gemini models are supported
-
-Example command:
-
-python src/factehr/clients/vertex_api_batch.py \
-    --project_id "som-nero-phi-nigam-starr" \
-    --dataset_id "factehr" \
-    --input_jsonl "data/datasets/prompted/merged,jsonl" \
-    --output_folder "data/datasets/completions" \
-    --model_name "gemini-1.5-flash-001" \
-    --max_samples 100 \
-    --max_new_tokens 256 \
-    --generation_config "src/factehr/clients/generation_params.json"
-
-
-"""
-
-
 import argparse
 import os
 import json
