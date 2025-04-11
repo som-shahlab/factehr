@@ -46,7 +46,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# input_path = "/share/pi/nigam/akshays/just-the-facts/data/manuscript/entailment_outputs_gemini_llama_4o_o1_101624.jsonl"
-# output_path = "/share/pi/nigam/akshays/just-the-facts/data/manuscript/annotation_file_101724.csv"
