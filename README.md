@@ -2,10 +2,12 @@
 
 Code to replicate the generation and LLM-as-a-judge evaluation of the FactEHR dataset. 
 
-📝 [Paper](https://arxiv.org/abs/2412.12422)
+📝 [Paper](https://arxiv.org/abs/2412.12422) 
+
 💾 [Dataset](https://stanford.redivis.com/datasets/bckk-15p0mwmz7)
 
 **NOTE**
+
 The Stanford Dataset DUA prohibts sharing data with third parties including LLM API providers. We follow the guidelines for responsible use as originally outlined by PhysioNet:
 If you are interested in using the GPT family of models, we suggest using one of the following services:
 - Azure OpenAI service. You'll need to opt out of human review of the data via this form. Reasons for opting out are: 1) you are processing sensitive data where the likelihood of harmful outputs and/or misuse is low, and 2) you do not have the right to permit Microsoft to process the data for abuse detection due to the data use agreement you have signed.
