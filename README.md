@@ -1,10 +1,15 @@
-# Fact Decomposition of Clinical Notes
-
-Code to replicate the generation and LLM-as-a-judge evaluation of the FactEHR dataset. 
-
-📝 [Paper](https://arxiv.org/abs/2412.12422) 
-
-💾 [Dataset](https://stanford.redivis.com/datasets/bckk-15p0mwmz7)
+<div align="center">
+  <h1>📄 🧠 FactEHR</h1>
+  <h4>
+    <a href="https://stanford.redivis.com/datasets/bckk-15p0mwmz7">💾 Dataset</a> • 
+    <a href="https://arxiv.org/abs/2412.12422">📝 Paper</a> • 
+    <a href="https://github.com/som-shahlab/factehr">⚙️ Code & Docs</a>
+  </h4>
+  <h4>A benchmark for fact decomposition and entailment evaluation of clinical notes</h4>
+  <p>
+    2,168 notes • 8,665 decompositions • 987,266 entailment pairs • Human labels for 1,036 examples
+  </p>
+</div>
 
 > [!NOTE]  
 > The Stanford Dataset DUA prohibts sharing data with third parties including LLM API providers. We follow the guidelines for responsible use as originally outlined by PhysioNet:
