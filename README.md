@@ -2,6 +2,9 @@
 
 Code to replicate the generation and LLM-as-a-judge evaluation of the FactEHR dataset. 
 
+📝 [Paper](https://arxiv.org/abs/2412.12422)
+💾 [Dataset](https://stanford.redivis.com/datasets/bckk-15p0mwmz7)
+
 **NOTE**
 The Stanford Dataset DUA prohibts sharing data with third parties including LLM API providers. We follow the guidelines for responsible use as originally outlined by PhysioNet:
 If you are interested in using the GPT family of models, we suggest using one of the following services:
@@ -30,7 +33,7 @@ To run all unit tests in `tests/` run this from the project root
 pytest
 ```
 
-## II. Data Dependencies
+## II. Data summary
 
 See [detailed overview](docs/dataset_summary.md) of the FactEHR dataset. 
 
