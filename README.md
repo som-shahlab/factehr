@@ -54,3 +54,78 @@ See the [data summary](docs/dataset_summary.md) and [release files](docs/release
 
 ```bash
 python -m pip install -e .
+```
+
+## 🧪 Running the Experiments
+
+We support two core experiments for evaluating factual reasoning in clinical notes:
+
+### 1. 🧩 Fact Decomposition
+
+This task involves prompting LLMs to extract structured atomic facts from raw clinical notes.
+
+**Inputs:**
+- Notes from `combined_notes_110424.csv`
+- Prompt templates in `prompts/`
+- An LLM provider (e.g., OpenAI, Claude, Bedrock)
+
+**Outputs:**
+- A list of decomposed facts per note (stored in `fact_decompositions_*.csv`)
+
+See [docs/experiments.md](docs/experiments.md#1-generating-fact-decompositions) for instructions on:
+- Supported prompt formats
+- Batch processing with rate-limited APIs
+- Handling invalid or unparseable outputs
+
+---
+
+### 2. 🔍 Entailment Evaluation
+
+FactEHR supports two entailment settings:
+- **Precision (`note ⇒ fact`)** — Does a note imply a given fact?
+- **Recall (`fact ⇒ sentence`)** — Does a fact imply a sentence in the note?
+
+**Approaches:**
+- Use your own classifier or fine-tuned entailment model
+- Use an LLM-as-a-judge (e.g., GPT-4, Claude) to score entailment pairs
+
+**Inputs:**
+- Entailment pairs in `entailment_pairs_110424.csv`
+- Fact decompositions and source notes
+- Optional: human-labeled samples for evaluation
+
+**Outputs:**
+- Entailment predictions (binary labels or probabilities)
+- Comparison against human annotations for calibration
+
+See [docs/experiments.md](docs/experiments.md#2-running-llm-experiments) for:
+- Prompting logic
+- Suggested evaluation metrics
+- Example LLM judge scripts
+
+---
+
+## 💸 Experiment Runtimes & Costs
+
+We provide estimated runtimes and token-level cost breakdowns for both fact decomposition and entailment evaluation tasks across several model providers.
+
+See [docs/runtimes.md](docs/runtimes.md) for:
+- Per-example costs
+- Total token volume
+- Parallelization strategies for large-scale runs
+
+## 📚 Citation
+
+If you use **FactEHR** in your research, please cite:
+
+```bibtex
+@article{munnangi2024factehr,
+  title     = {Assessing the Limitations of Large Language Models in Clinical Fact Decomposition},
+  author    = {Monica Munnangi and Akshay Swaminathan and Jason Alan Fries and Jenelle Jindal and Sanjana Narayanan and Ivan Lopez and Lucia Tu and Philip Chung and Jesutofunmi A. Omiye and Mehr Kashyap and Nigam Shah},
+  journal   = {arXiv preprint arXiv:2412.12422},
+  year      = {2024},
+  eprint    = {2412.12422},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  note      = {v1, 17 Dec 2024}
+}
