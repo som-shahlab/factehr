@@ -17,7 +17,7 @@ models=("$2")      # Model name as second argument
 client="$3"        # Client type as third argument
 SPLITS="${4:-25}"  # Optional splits argument with default of 25
 MAX_TOKENS="${5:-4000}" # max tokens for generation
-GPT_ENDPOINT="${6:-https://shcopenaisandbox.openai.azure.com/openai/deployments/shc-gpt-4o/chat/completions?api-version=2023-03-15-preview}" # Default endpoint
+GPT_ENDPOINT="${6:-ENTER URL HERE}" # Default endpoint
 
 # Other necessary variables
 save_directory="${FACTEHR_DATA_ROOT}/datasets/completions/test/"

@@ -12,18 +12,18 @@ max_tokens_list=(25 256)  # Corresponding max token values for each request dire
 save_directory="data/datasets/completions/test/"
 generation_config="src/factehr/clients/generation_params.json"
 models=("medlm-medium")  #  "meta-llama/Meta-Llama-3-8B-Instruct"  "gemini-1.5-flash-002"
-client="vertex"  # Can be "transformers", "openai-batch", "vertex-batch", "vertex"
+client="openai-batch"  # Can be "transformers", "openai-batch", "vertex-batch", "vertex"
 expected_cost=300  # expected cost of the job in dollars. Will throw an error if estimated cost exceeds expected cost
 
 # Define Vertex AI parameters
-project_id="som-nero-phi-nigam-starr"
+project_id="[GCP PROJECT ID HERE]"
 dataset_id="factehr"
 max_samples=100000  
 table_id=""  # For batch API - set to none if doesn't exist
 prediction_table_id=""  # For batch API - Set to none if doesn't exist
 
 # Define OpenAI parameters
-openai_request_url="https://shcopenaisandbox.openai.azure.com/openai/deployments/shc-gpt-4o/chat/completions?api-version=2023-03-15-preview"
+openai_request_url="ENTER URL HERE"
 max_requests_per_minute=480
 max_tokens_per_minute=80000
 token_encoding_name="cl100k_base"

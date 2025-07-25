@@ -25,12 +25,12 @@ dependencies = [
     "torch>=2.2.2",
     "transformers>=4.44.2",
     "accelerate>=0.33.0",
-    "bitsandbytes>=0.43.3",
+    "bitsandbytes>=0.42.0",
     "scikit-learn>=1.2.1",
     "vertexai>=1.67.1"
 ]
 requires-python = ">=3.8"
-authors = [{ name = "Jason Alan Fries", email = "jason-fries@stanford.edu" }]
+authors = [{ name = "Jason Alan Fries", email = "jason-fries@stanford.edu"}]
 maintainers = [
     { name = "Jason Alan Fries", email = "jason-fries@stanford.edu" },
 ]

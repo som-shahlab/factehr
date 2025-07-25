@@ -26,21 +26,16 @@ Download source datasets from PhysioNet and SHC. Saves to `data/datasets/`
 
 ```bash
 ./scripts/datasets/download_physionet_datasets.sh
-./scripts/datasets/download_shc_datasets.sh
 ./scripts/datasets/download_hf_datasets.sh
 ```
 
-#### 2. Sample documents from MIMIC-CXR, MIMIC-III, MedAlign, CORAL to create FactEHR dataset
+Download the Medalign dataset from Redivis (https://stanford.redivis.com/datasets/48nr-frxd97exb) and put the notes table here saved as a parquet:
 
->[!IMPORTANT]  
-> **LEGACY** Link original data to the legacy sampled documents, assign primary key and export CSVs for preprocessing.
->
-> ```bash
-> python scripts/hotfixes/get_note_provenance.py \
-> --path_to_legacy $FACTEHR_LEGACY_DOCS \
-> --path_to_datasets data/datasets/ \
-> --path_to_output data/datasets/
-> ```
+```
+data/datasets/raw/medalign-aaai_confidential_notes/medalign-aaai_confidential_notes_000000000000.parquet
+```
+
+#### 2. Sample documents from MIMIC-CXR, MIMIC-III, MedAlign, CORAL to create FactEHR dataset
 
 Sampling from source datasets, assign primary key and export to CSVs for preprocessing. We impose min/max length constraints to control for extreme context lengths during inference.
 
@@ -74,7 +69,7 @@ Materialize the prompted version of the FactEHR dataset.
 
 ```bash
 python scripts/build_fact_decomp_prompted_dataset.py \
---path_to_input data/datasets/factehr_v2_20240825.docbin \
+--path_to_input data/datasets/factehr_v2.docbin \
 --path_to_prompt_dir data/prompt_templates/fact_decomposition/ \
 --path_to_output_dir data/datasets/prompted/ \
 --file_name_prefix fact_decomposition \
@@ -84,14 +79,6 @@ python scripts/build_fact_decomp_prompted_dataset.py \
 
 ## 2. Running LLM Experiments
 
-### 🚧 Status: Subtasks
-- ✅ Run LLM fact decomposition inference on all documents and serialize to disk
-- ✅ Prompt tuning for entailment
-- ✅ NLP sentence tokenize fact list and serialize to disk
-- ✅ Benchmark existing NLI datasets (MedNLI, SNLI, MultiNLI, SciTail) on SOTA LLMs
-- ✅ Generate all entailment pairs for fact precision (`I[note ⇒ fact]`) and fact recall (`I[fact-list ⇒ sentence]`) and serialize to disk
-- ✅ Run LLM-as-a-judge inference on all entailment pairs and serialize raw generation outputs to disk
-
 #### 1. Prompt tuning for entailment
 Evaluate the performance of entailment, entailment+rationale, and entailment+rationale+CoT for performing entailment. This experiment
 leverages shc-gpt-4o (requires SHC VPN) and vertex API (requires Full Traffic VPN). 
@@ -99,7 +86,7 @@ leverages shc-gpt-4o (requires SHC VPN) and vertex API (requires Full Traffic VP
 First set the following:
 ```bash
 export HUGGINGFACE_HUB_TOKEN={your token here — only needed when running transformers client}
-export FACTEHR_DATA_ROOT={something like /share/pi/nigam/akshays/just-the-facts/data/}
+export FACTEHR_DATA_ROOT={path to the data folder}
 ```
 
 Next download the entailment datasets to the data directory. Because MedNLI comes from Physionet, run this first:
@@ -110,21 +97,19 @@ Download the entailment datasets by running:
 
 `./scripts/datasets/download_hf_datasets.sh`
 
-The one dataset that will not be downloaded from the above scripts is FactEHR (v0 — clinician annotated dev set). This is currently saved on carina here:
+The one dataset that will not be downloaded from the above scripts is FactEHR (v0 — clinician annotated dev set). This is `factehr_dev_set.csv` (release file).
 
-`/share/pi/nigam/akshays/just-the-facts/data/datasets/raw/entailment/factehr.csv`
-
-Copy that file into this location: `{$FACTEHR_DATA_ROOT}/datasets/raw/entailment/factehr.csv`
-
-As of 10/2/24, the following path on carina contains all NLI test sets needed for this experiment — instead of compiling the datasets locally you can copy over the contents of this folder into your directory: `/share/pi/nigam/akshays/just-the-facts/data/datasets/raw/entailment/`
+Copy that file into this location: `{$FACTEHR_DATA_ROOT}/datasets/raw/entailment/factehr/factehr.csv`
 
 To run the experiment pipeline, first adjust the config settings here as needed: `scripts/experiments/run_nli_prompt_tuning_experiment.sh`
 
-The most importatnt setting is the client you want to run. For example: 
+The most important setting is the client you want to run. For example: 
 ```bash
 models=("medlm-medium") #  "meta-llama/Meta-Llama-3-8B-Instruct"  "gemini-1.5-flash-002"
 client="vertex"  # Can be "transformers", "openai-batch", "vertex-batch", "vertex"
 ```
+
+If using GPT, make sure to define your API endpoint url in `scripts/experiments/run_inference_client.sh`. 
 
 It first launches the job for binary entailment prompts (`max_new_tokens = 25`) followed by the job for rationale entailment prompts (`max_new_tokens=256`).
 
@@ -137,8 +122,10 @@ This command runs the full experiment pipeline.
 Fact decomposition and entailment both involve running prompts through an LLM client. Once you have a prompted dataset (a jsonl file with the prompted inputs), you can run `scripts/experiments/run_inference_client.sh` with a command like
 
 ```bash
-scripts/experiments/run_inference_client.sh [PATH TO PROMPTED JSONL DATA] [MODEL NAME] [CLIENT NAME] [N TMUX SESSIONS] [MAX OUTPUT TOKENS]
+scripts/experiments/run_inference_client.sh [PATH TO PROMPTED JSONL DATA] [MODEL NAME] [CLIENT NAME] [N TMUX SESSIONS] [MAX OUTPUT TOKENS] [GPT_ENDPOINT URL]
 ```
+
+If using GPT, make sure to define your API endpoint url in `scripts/experiments/run_inference_client.sh`. 
 
 Example command:
 ```bash
