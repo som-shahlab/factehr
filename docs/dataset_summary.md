@@ -9,7 +9,7 @@
 | `FactEntail_p`  | `I[note ⇒ fact]`                      | 491,663        | Entailment indicating if a note implies a fact.         |
 | `FactEntail_r`  | `I[fact-list ⇒ sentence]`             | 495,603        | Entailment indicating if a fact list implies a sentence.|
 | `FactEntail`    | `FactEntail_p ∪ FactEntail_r`         | 987,266        | Entailment pairs.         |
-| `FactEntail_ann`| `x ~ U(FactEntail)`                   | TBD    | Annotated entailment data sampled from `FactEntail_p` and `FactEntail_r`. |
+| `FactEntail_ann`| `x ~ U(FactEntail)`                   | 1036    | Annotated entailment data sampled from `FactEntail_p` and `FactEntail_r`. |
 
 ### Provenance & Note Types
 
