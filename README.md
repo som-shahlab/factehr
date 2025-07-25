@@ -55,6 +55,7 @@ See the [data summary](docs/dataset_summary.md) and [release files](docs/release
 ```bash
 python -m pip install -e .
 ```
+---
 
 ## 🧪 Running the Experiments
 
@@ -105,14 +106,6 @@ See [docs/experiments.md](docs/experiments.md#2-running-llm-experiments) for:
 
 ---
 
-## 💸 Experiment Runtimes & Costs
-
-We provide estimated runtimes and token-level cost breakdowns for both fact decomposition and entailment evaluation tasks across several model providers.
-
-See [docs/runtimes.md](docs/runtimes.md) for:
-- Per-example costs
-- Total token volume
-- Parallelization strategies for large-scale runs
 
 ## 📚 Citation
 
