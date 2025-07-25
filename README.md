@@ -7,47 +7,50 @@
   </h4>
   <h4>A benchmark for fact decomposition and entailment evaluation of clinical notes</h4>
   <p>
-    2,168 notes • 8,665 decompositions • 987,266 entailment pairs • Human labels for 1,036 examples
+    2,168 notes • 8,665 decompositions • 987,266 entailment pairs • 1,036 human-labeled examples
   </p>
 </div>
 
-> [!NOTE]  
-> The Stanford Dataset DUA prohibts sharing data with third parties including LLM API providers. We follow the guidelines for responsible use as originally outlined by PhysioNet:
-> If you are interested in using the GPT family of models, we suggest using one of the following services:
-> - Azure OpenAI service. You'll need to opt out of human review of the data via this form. Reasons for opting out are: 1) you are processing sensitive data where the likelihood of harmful outputs and/or misuse is low, and 2) you do not have the right > to permit Microsoft to process the data for abuse detection due to the data use agreement you have signed.
-> - Amazon Bedrock. Bedrock provides options for fine-tuning foundation models using private labeled data. After creating a copy of a base foundation model for exclusive use, data is not shared back to the base model for training.
-> - Google's Gemini via Vertex AI on Google Cloud Platform. Gemini doesn't use your prompts or its responses as data to train its models. If making use of additional features offered through the Gemini for Google Cloud Trusted Tester Program, you >should obtain the appropriate opt-outs for data sharing, or otherwise not perform tasks that require the sharing of data.
-> - Anthropic Claude. Claude does not use your prompts or its responses as data to train its models by default, and routine human review of data is not performed.
+---
 
+# 🧠 FactEHR: A Benchmark for Fact Decomposition of Clinical Notes
 
+**FactEHR** is a benchmark dataset designed to evaluate the ability of large language models (LLMs) to perform **factual reasoning** over clinical notes. It includes:
 
-## Table of Contents
-- [I. Installation](#i-installation)
-- [II. Data Dependencies](#ii-data-dependencies)
-- [III. Experiment Pipeline [WIP]](#iii-experiment-workflow-wip)
-- [IV. Experiment Runtimes & Costs](docs/runtimes.md)
+- **2,168** deidentified notes from multiple publicly available datasets  
+- **8,665** LLM-generated fact decompositions  
+- **987,266** entailment pairs evaluating precision and recall of facts  
+- **1,036** expert-annotated examples for evaluation
 
-## I. Installation
+FactEHR supports LLM evaluation across tasks like **information extraction**, **entailment classification**, and **model-as-a-judge** reasoning.
 
-Use editable mode during development.
+> [!WARNING]  
+> **Usage Restrictions:** The FactEHR dataset is subject to a Stanford Dataset DUA. Sharing data with LLM API providers is prohibited.  
+> We follow PhysioNet’s responsible use principles for running LLMs on sensitive clinical data:
+> 
+> - ✅ Use **Azure OpenAI** (with human review opt-out)  
+> - ✅ Use **Amazon Bedrock** (private copies of foundation models)  
+> - ✅ Use **Google Gemini via Vertex AI** (non-training usage)  
+> - ✅ Use **Anthropic Claude** (no prompt data used for training)
+> - ❌ **Do not transmit data** to commercial APIs (e.g., ChatGPT, Gemini, Claude) unless HIPAA-compliant and explicitly permitted  
+> - ❌ **Do not share** notes or derived outputs with third parties
+
+---
+
+## 📦 What's Included
+
+| Component          | Count     | Description                                               |
+|-------------------|-----------|-----------------------------------------------------------|
+| Clinical Notes     | 2,168     | Deidentified clinical notes across 4 public datasets      |
+| Fact Decompositions | 8,665     | Model-generated fact lists from each note                |
+| Entailment Pairs   | 987,266   | Pairs evaluating if notes imply facts (and vice versa)   |
+| Expert Labels      | 1,036     | Human-annotated entailment labels for benchmarking        |
+
+See the [data summary](docs/dataset_summary.md) and [release files](docs/release_files.md) for more details.
+
+---
+
+## 🛠️ Installation
 
 ```bash
 python -m pip install -e .
-```
-
-To run all unit tests in `tests/` run this from the project root
-
-```bash
-pytest
-```
-
-## II. Data summary
-
-See [detailed overview](docs/dataset_summary.md) of the FactEHR dataset. 
-
-See [here](docs/release_files.md) for summary of release files.
- 
-## III. Experiment Pipeline 
-See [experiments](docs/experiments.md) for an overview of the experiment pipeline.
-
-For running fact decomposition and entailment scoring using an LLM judge, see [here](https://github.com/som-shahlab/factehr/blob/main/docs/experiments.md#2-running-llm-experiments).
