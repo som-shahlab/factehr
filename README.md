@@ -30,3 +30,5 @@ See [here](docs/release_files.md) for summary of release files.
  
 ## III. Experiment Pipeline 
 See [experiments](docs/experiments.md) for an overview of the experiment pipeline.
+
+For running fact decomposition and entailment scoring using an LLM judge, see [here](https://github.com/som-shahlab/factehr/blob/main/docs/experiments.md#2-running-llm-experiments).
