@@ -113,12 +113,12 @@ If you use **FactEHR** in your research, please cite:
 
 ```bibtex
 @article{munnangi2024factehr,
-  title     = {Assessing the Limitations of Large Language Models in Clinical Fact Decomposition},
-  author    = {Monica Munnangi and Akshay Swaminathan and Jason Alan Fries and Jenelle Jindal and Sanjana Narayanan and Ivan Lopez and Lucia Tu and Philip Chung and Jesutofunmi A. Omiye and Mehr Kashyap and Nigam Shah},
-  journal   = {arXiv preprint arXiv:2412.12422},
-  year      = {2024},
-  eprint    = {2412.12422},
+  title         = {FactEHR: A Dataset for Evaluating Factuality in Clinical Notes Using LLMs},
+  author        = {Monica Munnangi and Akshay Swaminathan and Jason Alan Fries and Jenelle Jindal and Sanjana Narayanan and Ivan Lopez and Lucia Tu and Philip Chung and Jesutofunmi A. Omiye and Mehr Kashyap and Nigam Shah},
+  journal       = {arXiv preprint arXiv:2412.12422},
+  year          = {2024},
+  eprint        = {2412.12422},
   archivePrefix = {arXiv},
   primaryClass  = {cs.CL},
-  note      = {v1, 17 Dec 2024}
+  note          = {To appear at MLHC 2025. Version 2, revised 5 Aug 2025}
 }
