@@ -112,13 +112,12 @@ See [docs/experiments.md](docs/experiments.md#2-running-llm-experiments) for:
 If you use **FactEHR** in your research, please cite:
 
 ```bibtex
-@article{munnangi2024factehr,
-  title         = {FactEHR: A Dataset for Evaluating Factuality in Clinical Notes Using LLMs},
-  author        = {Monica Munnangi and Akshay Swaminathan and Jason Alan Fries and Jenelle Jindal and Sanjana Narayanan and Ivan Lopez and Lucia Tu and Philip Chung and Jesutofunmi A. Omiye and Mehr Kashyap and Nigam Shah},
-  journal       = {arXiv preprint arXiv:2412.12422},
-  year          = {2024},
-  eprint        = {2412.12422},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.CL},
-  note          = {To appear at MLHC 2025. Version 2, revised 5 Aug 2025}
+@misc{munnangi2025factehrdatasetevaluatingfactuality,
+      title={FactEHR: A Dataset for Evaluating Factuality in Clinical Notes Using LLMs}, 
+      author={Monica Munnangi and Akshay Swaminathan and Jason Alan Fries and Jenelle Jindal and Sanjana Narayanan and Ivan Lopez and Lucia Tu and Philip Chung and Jesutofunmi A. Omiye and Mehr Kashyap and Nigam Shah},
+      year={2025},
+      eprint={2412.12422},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2412.12422}, 
 }
