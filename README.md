@@ -112,12 +112,17 @@ See [docs/experiments.md](docs/experiments.md#2-running-llm-experiments) for:
 If you use **FactEHR** in your research, please cite:
 
 ```bibtex
-@misc{munnangi2025factehrdatasetevaluatingfactuality,
-      title={FactEHR: A Dataset for Evaluating Factuality in Clinical Notes Using LLMs}, 
-      author={Monica Munnangi and Akshay Swaminathan and Jason Alan Fries and Jenelle Jindal and Sanjana Narayanan and Ivan Lopez and Lucia Tu and Philip Chung and Jesutofunmi A. Omiye and Mehr Kashyap and Nigam Shah},
-      year={2025},
-      eprint={2412.12422},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2412.12422}, 
+@InProceedings{pmlr-v298-munnangi25a,
+  title = 	 {Fact{EHR}: A Dataset for Evaluating Factuality in Clinical Notes Using {LLM}s},
+  author =       {Munnangi, Monica and Swaminathan, Akshay and Fries, Jason Alan and Jindal, Jenelle A and Narayanan, Sanjana and Lopez, Ivan and Tu, Lucia and Chung, Philip and Omiye, Jesutofunmi and Kashyap, Mehr and Shah, Nigam},
+  booktitle = 	 {Proceedings of the 10th Machine Learning for Healthcare Conference},
+  year = 	 {2025},
+  editor = 	 {Agrawal, Monica and Deshpande, Kaivalya and Engelhard, Matthew and Joshi, Shalmali and Tang, Shengpu and Urteaga, Iñigo},
+  volume = 	 {298},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {15--16 Aug},
+  publisher =    {PMLR},
+  pdf = 	 {https://raw.githubusercontent.com/mlresearch/v298/main/assets/munnangi25a/munnangi25a.pdf},
+  url = 	 {https://proceedings.mlr.press/v298/munnangi25a.html},
+  abstract = 	 {Verifying and attributing factual claims is essential for the safe and effective use of large language models (LLMs) in healthcare. A core component of factuality evaluation is fact decomposition—the process of breaking down complex clinical statements into fine-grained, atomic facts for verification. Recent work has proposed fact decomposition, which uses LLMs to rewrite source text into concise sentences conveying a single piece of information, as an approach for fine-grained fact verification, in the general domain. However, clinical documentation poses unique challenges for fact decomposition due to dense terminology and diverse note types and remains understudied. To address this gap and to explore these challenges, we present FactEHR, an NLI dataset consisting of full document fact decompositions for 2,168 clinical notes spanning four types from three hospital systems resulting in 987,266 entailment pairs. We asses the generated facts on different axes, from entailment evaluation of LLMs to a qualitative analysis. Our evaluation, including review by clinicians, highlights significant variability in the performance of LLMs for fact decom- position from Gemini generating highly relevant and factually correct facts to Llama-3 generating fewer and inconsistent facts. The results underscore the need for better LLM capabilities to support factual verification in clinical text. To facilitate further research, we release anonymized code and plan to make the dataset available upon acceptance.}
 }
